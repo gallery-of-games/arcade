@@ -112,7 +112,8 @@ class Player(Ship):
                 for obj in objs:
                     if laser.collision(obj):
                         objs.remove(obj)
-                        self.lasers.remove(laser)
+                        if laser in self.lasers:
+                            self.lasers.remove(laser)
 
     def draw(self, window):
         super().draw(window)
@@ -166,7 +167,7 @@ def main():
     player_velocity = 5
     laser_velocity = 5
 
-    player = Player(300, 650)
+    player = Player(300, 630)
 
     clock = pygame.time.Clock()
 
@@ -224,7 +225,7 @@ def main():
             player.x += player_velocity
         if keys[pygame.K_UP] and player.y - player_velocity > 0:
             player.y -= player_velocity
-        if keys[pygame.K_DOWN] and player.y + player.get_height() + player_velocity < HEIGHT:
+        if keys[pygame.K_DOWN] and player.y + player.get_height() + player_velocity + 15 < HEIGHT:
             player.y += player_velocity
         if keys[pygame.K_SPACE]:
             player.shoot()
@@ -248,5 +249,24 @@ def main():
     pygame.display.flip()
 
 
+def main_menu():
+    title_font = pygame.font.SysFont("arial", 75)
+    run = True
+    while run:
+        WIN.blit(BG, (0, 0))
+        title_label = title_font.render("Press mouse button to begin", 1, (255, 255, 255))
+        WIN.blit(title_label, (WIDTH/2 - title_label.get_width()/2, 350))
+        # high_level = title_font.render(f"High Scores:\n {self.max_level}")
+        # WIN.blit(high_level, (WIDTH / 2 - title_label.get_width() / 2, 350))
+
+        pygame.display.update()
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                run = False
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                main()
+    pygame.quit()
+
+
 if __name__ == '__main__':
-    main()
+    main_menu()
