@@ -18,7 +18,6 @@ We are creating an arcade style game that contains multiple games within our mai
 [Trello Gallery of Games](https://trello.com/invite/b/LdzZM5iA/ATTI95625f9015f7b008a888cf1edde70ac6CBECCA49/401-midterm)
 
 ## Resources 
-[Space Invaders Assets](https://www.youtube.com/redirect?event=video_description&redir_token=QUFFLUhqbkhzMi1yNjdIYXJlMDBZLUQwUzNvb2N5V2V6d3xBQ3Jtc0ttbnc1bG5hcWtmUDZvaEhTbnJDTHVxZEtYcGpZcUU3eHpXVDNfRXZIbkJVQ3pWMEJsMGJPcDhUWGtxMTRlUnM2RXhXd0JlcjhZck9KT3VNMzdWMjFkb00wc28ySk5MQmZXNW9ickR3R2hjWmlHN3FJSQ&q=https%3A%2F%2Ftechwithtim.net%2Fwp-content%2Fuploads%2F2020%2F04%2Fassets.zip&v=Q-__8Xw9KTM)
 
 
 ## SETUP
