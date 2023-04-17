@@ -8,22 +8,14 @@
 - Dutch Foy
 - Mandela Steele-Dadzie
 
-# Challenge Title
-<!-- Description of the challenge -->
+# Description
+We are creating an arcade style game that contains multiple games within our main pygame program.
 
 ## Whiteboard Process
-![gallery of games whiteboard](team-agreement/Gallery%20of%20Games.jpg)
 ![gallery of games wireframe](team-agreement/Wireframe_Gallery_of_Games.jpg)
 
 ## Project Management
 [Trello Gallery of Games](https://trello.com/invite/b/LdzZM5iA/ATTI95625f9015f7b008a888cf1edde70ac6CBECCA49/401-midterm)
-
-## Approach & Efficiency
-<!-- What approach did you take? Why? What is the Big O space/time for this approach? -->
-
-## Solution
-<!-- Show how to run your code, and examples of it in action -->
-
 
 ## SETUP
 ```
