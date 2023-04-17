@@ -48,7 +48,7 @@ class Laser:
         return collide(obj, self)
 
 def collide(obj1, obj2):
-
+    pass
 
 class Ship:
     def __init__(self, x, y, health=100):
