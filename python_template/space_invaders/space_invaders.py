@@ -112,7 +112,16 @@ class Player(Ship):
                 for obj in objs:
                     if laser.collision(obj):
                         objs.remove(obj)
-                        self.lasers.remove(laser)
+                        if laser in self.lasers:
+                            self.lasers.remove(laser)
+
+    def draw(self, window):
+        super().draw(window)
+        self.health_bar(window)
+
+    def health_bar(self, window):
+        pygame.draw.rect(window, (255, 0, 0), (self.x, self.y + self.ship_img.get_height() + 10, self.ship_img.get_width(), 10))
+        pygame.draw.rect(window, (0, 255, 0), (self.x, self.y + self.ship_img.get_height() + 10, self.ship_img.get_width() * (self.health/self.max_health), 10))
 
 
 class Enemy(Ship):
@@ -130,11 +139,17 @@ class Enemy(Ship):
     def move(self, velocity):
         self.y += velocity
 
+    def shoot(self):
+        if self.cool_down_counter == 0:
+            laser = Laser(self.x-15, self.y, self.laser_img)
+            self.lasers.append(laser)
+            self.cool_down_counter = 1
+
 
 def collide(obj1, obj2):
     offset_x = obj2.x - obj1.x
     offset_y = obj2.y - obj1.y
-    return obj1.mask.overlap(obj2.mask, (offset_x, offset_y)) != None
+    return obj1.mask.overlap(obj2.mask, (offset_x, offset_y)) is not None
 
 
 def main():
@@ -152,7 +167,7 @@ def main():
     player_velocity = 5
     laser_velocity = 5
 
-    player = Player(300, 650)
+    player = Player(300, 630)
 
     clock = pygame.time.Clock()
 
@@ -210,7 +225,7 @@ def main():
             player.x += player_velocity
         if keys[pygame.K_UP] and player.y - player_velocity > 0:
             player.y -= player_velocity
-        if keys[pygame.K_DOWN] and player.y + player.get_height() + player_velocity < HEIGHT:
+        if keys[pygame.K_DOWN] and player.y + player.get_height() + player_velocity + 15 < HEIGHT:
             player.y += player_velocity
         if keys[pygame.K_SPACE]:
             player.shoot()
@@ -218,15 +233,40 @@ def main():
         for enemy in enemies[:]:
             enemy.move(enemy_velocity)
             enemy.move_lasers(laser_velocity, player)
-            if enemy.y + enemy.get_height() > HEIGHT:
+
+            if random.randrange(0, 2*60) == 1:
+                enemy.shoot()
+
+            if collide(enemy, player):
+                player.health -= 10
+                enemies.remove(enemy)
+            elif enemy.y + enemy.get_height() > HEIGHT:
                 lives -= 1
                 enemies.remove(enemy)
 
         player.move_lasers(-laser_velocity, enemies)
-        enemy.move_lasers(laser_velocity, player)
 
     pygame.display.flip()
 
 
+def main_menu():
+    title_font = pygame.font.SysFont("arial", 75)
+    run = True
+    while run:
+        WIN.blit(BG, (0, 0))
+        title_label = title_font.render("Press mouse button to begin", 1, (255, 255, 255))
+        WIN.blit(title_label, (WIDTH/2 - title_label.get_width()/2, 350))
+        # high_level = title_font.render(f"High Scores:\n {self.max_level}")
+        # WIN.blit(high_level, (WIDTH / 2 - title_label.get_width() / 2, 350))
+
+        pygame.display.update()
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                run = False
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                main()
+    pygame.quit()
+
+
 if __name__ == '__main__':
-    main()
+    main_menu()
