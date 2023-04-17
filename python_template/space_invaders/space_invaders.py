@@ -28,6 +28,28 @@ YELLOW_LASER = pygame.image.load("assets/pixel_laser_yellow.png")
 BG = pygame.transform.scale(pygame.image.load("assets/background-black.png"), (WIDTH, HEIGHT))
 
 
+class Laser:
+    def __init__(self, x, y, img):
+        self.x = x
+        self.y = y
+        self.img = img
+        self.mask = pygame.mask.from_surface(self.img)
+
+    def draw(self, window):
+        window.blit(self.img, (self.x, self.y))
+
+    def move(self, velocity):
+        self.y += velocity
+
+    def off_screen(self, height):
+        return self.y <= HEIGHT and self.y >= 0
+
+    def collision(self, obj):
+        return collide(obj, self)
+
+def collide(obj1, obj2):
+
+
 class Ship:
     def __init__(self, x, y, health=100):
         self.x = x
@@ -74,15 +96,23 @@ class Enemy(Ship):
 def main():
     run = True
     FPS = 60
-    level = 1
+    level = 0
     lives = 5
     main_font = pygame.font.SysFont('arial', 50)
+    lost_font = pygame.font.SysFont('arial', 70)
+
+    enemies = []
+    wave_length = 5
+    enemy_velocity = 1
 
     player_velocity = 5
 
     player = Player(300, 650)
 
     clock = pygame.time.Clock()
+
+    lost = False
+    lost_count = 0
 
 
     def redraw_window():
@@ -93,13 +123,37 @@ def main():
         WIN.blit(lives_label, (10, 10))
         WIN.blit(level_label, (WIDTH - level_label.get_width() - 10, 10))
 
+        for enemy in enemies:
+            enemy.draw(WIN)
+
         player.draw(WIN)
+
+        if lost:
+            lost_label = lost_font.render("Game Over", 1, (255, 0, 0))
+            WIN.blit(lost_label, (WIDTH/2 - lost_label.get_width()/2, 350))
 
         pygame.display.update()
 
     while run:
         clock.tick(FPS)
         redraw_window()
+
+        if lives <= 0 or player.health <= 0:
+            lost = True
+            lost_count += 1
+
+        if lost:
+            if lost_count > FPS * 5:
+                run = False
+            else:
+                continue
+
+        if len(enemies) == 0:
+            level += 1
+            wave_length += 5
+            for i in range(wave_length):
+                enemy = Enemy(random.randrange(50, WIDTH - 100), random.randrange(-1500, -100), random.choice(["red", "blue", "green"]))
+                enemies.append(enemy)
 
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -115,8 +169,14 @@ def main():
         if keys[pygame.K_DOWN] and player.y + player.get_height() + player_velocity < HEIGHT:
             player.y += player_velocity
 
+        for enemy in enemies[:]:
+            enemy.move(enemy_velocity)
+            if enemy.y + enemy.get_height() > HEIGHT:
+                lives -= 1
+                enemies.remove(enemy)
 
     pygame.display.flip()
+
 
 if __name__ == '__main__':
     main()
