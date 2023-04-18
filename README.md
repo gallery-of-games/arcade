@@ -17,6 +17,9 @@ We are creating an arcade style game that contains multiple games within our mai
 ## Project Management
 [Trello Gallery of Games](https://trello.com/invite/b/LdzZM5iA/ATTI95625f9015f7b008a888cf1edde70ac6CBECCA49/401-midterm)
 
+## Resources 
+
+
 ## SETUP
 ```
 python3 -m venv .venv
