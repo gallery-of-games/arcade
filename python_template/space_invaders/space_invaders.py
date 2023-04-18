@@ -300,8 +300,17 @@ def main_menu():
         high_score_title = title_font.render(f'High Scores:', False, (255, 255, 255))
         WIN.blit(high_score_title, (WIDTH / 2 - high_score_title.get_width() / 2, 150))
         high_score_list = 250
+
         sorted_high_scores = sorted(high_score.items(), key=lambda x: x[1], reverse=True)[:5]
         for key, value in sorted_high_scores:
+
+            # TODO: WRITE PLAYER NAME AND SCORE TO TXT FILE AND PULL FROM TXT FILE TO DISPLAY
+            # with open('assets/player_info.txt', 'w') as file:
+            #     file.write(f'{key}, {value} \n')
+            # with open('assets/player_info.txt', 'r') as file:
+            #     contents = file.read()
+            #     name_score = contents.split('\n'[0].split(': ')[0])
+
             show_high_scores = title_font.render(f"{key} -> {value}", False, (255, 255, 255))
             WIN.blit(show_high_scores, (WIDTH / 2 - show_high_scores.get_width() / 2, high_score_list))
             high_score_list += 100
