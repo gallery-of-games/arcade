@@ -16,8 +16,17 @@ Recreation of retro style Space Invaders game
 [Pygame](https://www.pygame.org/docs/)
 [Tech with Tim](https://www.techwithtim.net/tutorials/game-development-with-python/)
 [Tech with Tim: Space Shooter Assets](https://techwithtim.net/wp-content/uploads/2020/04/assets.zip)
+TAs: Tammy helped with getting user input to function
 
-
+## Game instructions for "Space Invaders"
+"Space Invaders" is a classic arcade game where the objective is to defeat a group of invading aliens with a laser cannon. In this version of the game, you control a spaceship and fight against enemy spaceships.
+### Instructions
+- Use the arrow keys (left, right, up, down) to move your spaceship around the screen.
+- Press the spacebar to shoot lasers at the enemy spaceships.
+- Your spaceship has a health bar underneath it, which decreases every time you get hit by an enemy laser or enemy ship. If your health bar reaches zero, you lose the game.
+- If you destroy all of the enemy ships in the wave, you move on to the next wave.
+- The game will keep track of your highest level achieved, so try to beat your previous high level every time you play.
+- Good luck and have fun playing "Space Invaders"!
 
 ## SETUP
 See top level README

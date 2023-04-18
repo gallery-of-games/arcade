@@ -14,46 +14,47 @@ WIDTH, HEIGHT = 750, 750
 WIN = pygame.display.set_mode((WIDTH, HEIGHT))
 pygame.display.set_caption("Space Invaders")
 
-# TODO: ASSETS FOR PYTEST
-# Load images
-# Enemy ships
-RED_SHIP = pygame.image.load("python_template/space_invaders/assets/pixel_laser_red.png")
-BLUE_SHIP = pygame.image.load("python_template/space_invaders/assets/pixel_ship_blue_small.png")
-GREEN_SHIP = pygame.image.load("python_template/space_invaders/assets/pixel_ship_green_small.png")
-# Player ship
-YELLOW_SHIP = pygame.image.load("python_template/space_invaders/assets/pixel_ship_yellow.png")
-# Lasers
-# Enemy lasers
-RED_LASER = pygame.image.load("python_template/space_invaders/assets/pixel_laser_red.png")
-GREEN_LASER = pygame.image.load("python_template/space_invaders/assets/pixel_laser_green.png")
-BLUE_LASER = pygame.image.load("python_template/space_invaders/assets/pixel_laser_blue.png")
-# Player laser
-YELLOW_LASER = pygame.image.load("python_template/space_invaders/assets/pixel_laser_yellow.png")
 
-# Background image
-BG = pygame.transform.scale(pygame.image.load("python_template/space_invaders/assets/background-black.png"), (WIDTH, HEIGHT))
-
-
-
-# TODO: ASSETS FOR GAMEPLAY
+# # TODO: ASSETS FOR PYTEST - TOP
 # # Load images
 # # Enemy ships
-# RED_SHIP = pygame.image.load("assets/pixel_ship_red_small.png")
-# BLUE_SHIP = pygame.image.load("assets/pixel_ship_blue_small.png")
-# GREEN_SHIP = pygame.image.load("assets/pixel_ship_green_small.png")
+# RED_SHIP = pygame.image.load("python_template/space_invaders/assets/pixel_laser_red.png")
+# BLUE_SHIP = pygame.image.load("python_template/space_invaders/assets/pixel_ship_blue_small.png")
+# GREEN_SHIP = pygame.image.load("python_template/space_invaders/assets/pixel_ship_green_small.png")
 # # Player ship
-# YELLOW_SHIP = pygame.image.load("assets/pixel_ship_yellow.png")
-#
+# YELLOW_SHIP = pygame.image.load("python_template/space_invaders/assets/pixel_ship_yellow.png")
 # # Lasers
 # # Enemy lasers
-# RED_LASER = pygame.image.load("assets/pixel_laser_red.png")
-# GREEN_LASER = pygame.image.load("assets/pixel_laser_green.png")
-# BLUE_LASER = pygame.image.load("assets/pixel_laser_blue.png")
+# RED_LASER = pygame.image.load("python_template/space_invaders/assets/pixel_laser_red.png")
+# GREEN_LASER = pygame.image.load("python_template/space_invaders/assets/pixel_laser_green.png")
+# BLUE_LASER = pygame.image.load("python_template/space_invaders/assets/pixel_laser_blue.png")
 # # Player laser
-# YELLOW_LASER = pygame.image.load("assets/pixel_laser_yellow.png")
-#
+# YELLOW_LASER = pygame.image.load("python_template/space_invaders/assets/pixel_laser_yellow.png")
 # # Background image
-# BG = pygame.transform.scale(pygame.image.load("assets/background-black.png"), (WIDTH, HEIGHT))
+# BG = pygame.transform.scale(pygame.image.load("python_template/space_invaders/assets/background-black.png"), (WIDTH, HEIGHT))
+# # TODO: ASSETS FOR PYTEST - BOTTOM
+
+
+
+# TODO: ASSETS FOR GAMEPLAY - TOP
+# Load images
+# Enemy ships
+RED_SHIP = pygame.image.load("assets/pixel_ship_red_small.png")
+BLUE_SHIP = pygame.image.load("assets/pixel_ship_blue_small.png")
+GREEN_SHIP = pygame.image.load("assets/pixel_ship_green_small.png")
+# Player ship
+YELLOW_SHIP = pygame.image.load("assets/pixel_ship_yellow.png")
+# Lasers
+# Enemy lasers
+RED_LASER = pygame.image.load("assets/pixel_laser_red.png")
+GREEN_LASER = pygame.image.load("assets/pixel_laser_green.png")
+BLUE_LASER = pygame.image.load("assets/pixel_laser_blue.png")
+# Player laser
+YELLOW_LASER = pygame.image.load("assets/pixel_laser_yellow.png")
+# Background image
+BG = pygame.transform.scale(pygame.image.load("assets/background-black.png"), (WIDTH, HEIGHT))
+# TODO: ASSETS FOR GAMEPLAY - BOTTOM
+
 
 # Dictionary to store scores
 high_score = {
@@ -211,10 +212,10 @@ class Player(Ship):
         draw(self, window): Draws the player's ship on the screen
         health_bar(self, window): Draws the health bar for the player's ship on the screen
     """
-    # TODO: THIS init IS FOR THE GAME
+    # TODO: THIS __init__ IS FOR THE GAME
     def __init__(self, x, y, health=100):
 
-    # TODO: THIS init IS FOR TESTING
+    # TODO: THIS __init__ IS FOR TESTING
     # def __init__(self, x, y, health=10):
         """
         __init__(self, x, y, health=100): Initialize a player object with x and y coordinates and an optional health parameter
@@ -371,8 +372,6 @@ def main():
         """
         redraw_window(): Redraws the game window
         """
-        # global user_input
-        # user_input = ''
         WIN.blit(BG, (0, 0))
         lives_label = main_font.render(f"Invasions Remaining: {lives}", 1, (255, 0, 0))
         level_label = main_font.render(f"Level: {level}", 1, (0, 0, 255))
@@ -498,16 +497,30 @@ def main_menu():
         high_score_list = 250
 
         sorted_high_scores = sorted(high_score.items(), key=lambda x: x[1], reverse=True)[:5]
+        # set(sorted_high_scores)
         for key, value in sorted_high_scores:
 
-            # TODO: WRITE PLAYER NAME AND SCORE TO TXT FILE AND PULL FROM TXT FILE TO DISPLAY
-            # with open('assets/player_info.txt', 'w') as file:
-            #     file.write(f'{key}, {value} \n')
-            # with open('assets/player_info.txt', 'r') as file:
-            #     contents = file.read()
-            #     name_score = contents.split('\n'[0].split(': ')[0])
+            # TODO: WRITE PLAYER NAME AND SCORE TO TXT FILE AND PULL FROM TXT FILE TO DISPLAY - TOP
+            # with open('assets/player_name_score.txt', 'r') as copy_file:
+            #     contents = copy_file.read()
+            #     # set(contents)
+            #     # str(value)
+            # with open('assets/player_name_score.txt', 'a') as file:
+            #     file.write(f'{key}: {value} \n')
+            # # with open('assets/player_name_score.txt', 'r') as file:
+            # #     contents = file.read()
+            # #     name_score = contents.split(': ')[0].split(' \n')[0]
+            # #     key = name_score[0]
+            # #     value = name_score[1]
+            #
+            # show_high_scores = title_font.render(f'{key}: {value}', False, (255, 255, 255))
+            # WIN.blit(show_high_scores, (WIDTH / 2 - show_high_scores.get_width() / 2, high_score_list))
+            # high_score_list += 100
+            # TODO: WRITE PLAYER NAME AND SCORE TO TXT FILE AND PULL FROM TXT FILE TO DISPLAY - BOTTOM
 
-            show_high_scores = title_font.render(f"{key} -> {value}", False, (255, 255, 255))
+
+            # TODO BELOW IS THE WORKING CODE
+            show_high_scores = title_font.render(f"{key}: {value}", False, (255, 255, 255))
             WIN.blit(show_high_scores, (WIDTH / 2 - show_high_scores.get_width() / 2, high_score_list))
             high_score_list += 100
 
@@ -522,7 +535,7 @@ def main_menu():
 
 if __name__ == '__main__':
     """
-    Main Gate: Calls main_menu function
+    Main Gate: Calls main_menu function to run game
     """
-    # main_menu()
-    pass
+    main_menu()
+    # pass
