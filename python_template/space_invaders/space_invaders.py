@@ -9,7 +9,7 @@ pygame.display.init()
 
 WIDTH, HEIGHT = 750, 750
 WIN = pygame.display.set_mode((WIDTH, HEIGHT))
-pygame.display.set_caption("Arcade Space Shooter")
+pygame.display.set_caption("Space Invaders")
 
 # Load images
 RED_SHIP = pygame.image.load("assets/pixel_ship_red_small.png")
@@ -210,7 +210,7 @@ def main():
     def get_player_name():
         text_color = (255, 255, 255)
         get_info_font = pygame.font.Font(None, 50)
-        input_rect = pygame.Rect(350, 300, 250, 32)
+        input_rect = pygame.Rect(250, 300, 250, 32)
         active = False
         text = ""
 

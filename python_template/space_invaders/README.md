@@ -15,7 +15,8 @@ Recreation of retro style Space Invaders game
 ## Resources 
 [Pygame](https://www.pygame.org/docs/)
 [Tech with Tim](https://www.techwithtim.net/tutorials/game-development-with-python/)
-[Space Invaders Assets](https://www.youtube.com/redirect?event=video_description&redir_token=QUFFLUhqbkhzMi1yNjdIYXJlMDBZLUQwUzNvb2N5V2V6d3xBQ3Jtc0ttbnc1bG5hcWtmUDZvaEhTbnJDTHVxZEtYcGpZcUU3eHpXVDNfRXZIbkJVQ3pWMEJsMGJPcDhUWGtxMTRlUnM2RXhXd0JlcjhZck9KT3VNMzdWMjFkb00wc28ySk5MQmZXNW9ickR3R2hjWmlHN3FJSQ&q=https%3A%2F%2Ftechwithtim.net%2Fwp-content%2Fuploads%2F2020%2F04%2Fassets.zip&v=Q-__8Xw9KTM)
+[Tech with Tim: Space Shooter Assets](https://techwithtim.net/wp-content/uploads/2020/04/assets.zip)
+
 
 
 ## SETUP
