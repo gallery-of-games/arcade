@@ -2,6 +2,37 @@ import pygame
 import sys
 import random
 
+
+# General setup, needs init() to initialize a pygame  -------------------------------------------------------------
+pygame.mixer.pre_init(44100, -16, 2, 512)
+pygame.init()
+
+# creates a clock so game runs at an constant speed
+clock = pygame.time.Clock()
+
+
+# Main Window, sets up main window width, height and sets it in pygame
+screen_width = 1280
+screen_height = 960
+screen = pygame.display.set_mode((screen_width, screen_height))
+# changes the name of the window
+pygame.display.set_caption('Pong')
+
+# Global Variables
+# Colors ---------------------------------------Uses pygame.Color to create and hold color value variables----------------------------------------------------
+bg_color = pygame.Color('grey12')
+light_grey = (200, 200, 200)
+accent_color = (240,255,255)
+black = (0, 0, 0)
+# Font ------------------------------------------------------------------
+game_font = pygame.font.Font('freesansbold.ttf', 32)
+# Sound -----------------------------------------------------------------
+pong_sound = pygame.mixer.Sound('pong/assets/audio/pong.ogg')
+score_sound = pygame.mixer.Sound('pong/assets/audio/score.ogg')
+middle_strip = pygame.Rect(screen_width/2 - 2, 0, 4, screen_height)
+# Counters
+fade_counter = 0
+
 class Block(pygame.sprite.Sprite):
     # Most basic block/sprite class that others will inherit from
     def __init__(self, path, x_pos, y_pos):
@@ -120,6 +151,8 @@ class GameManager:
         self.opponent_score = 0
         self.ball_group = ball_group
         self.paddle_group = paddle_group
+        self.game_over_flag = False
+        self.fade_counter = 0
 
     def reset_ball(self):
         if self.ball_group.sprite.rect.right >= screen_width:
@@ -129,8 +162,8 @@ class GameManager:
             self.player_score += 1
             self.ball_group.sprite.reset_ball()
         if self.opponent_score >= 3:
-            # need to fix game over method to display a new bg fill
-            # self.game_over()
+            self.game_over()
+
 
 
     def draw_score(self):
@@ -155,24 +188,27 @@ class GameManager:
         self.draw_score()
 
     def game_over(self):
+        if self.fade_counter < screen_width:
+            self.fade_counter += screen_width
+            pygame.draw.rect(screen, black, (0, 0, self.fade_counter, screen_height))
         # enter logic that will bring to game over screen
         game_over_text = game_font.render(f"You Lost with {self.player_score} points!", True, accent_color)
-        game_over_rect = game_over_text.get_rect(center=(screen_width / 2, screen_height / 2))
+        game_over_rect = game_over_text.get_rect(center=(screen_width / 2, screen_height / 2 - 50))
         screen.blit(game_over_text, game_over_rect)
         # Save score
         save_score_font = pygame.font.Font("freesansbold.ttf", 32)
         save_score_surface = save_score_font.render("Save Score", True, accent_color)
-        save_score_rect = save_score_surface.get_rect(center=(screen_width / 2, screen_height / 2))
+        save_score_rect = save_score_surface.get_rect(center=(screen_width / 2, screen_height / 2 + 50))
         screen.blit(save_score_surface, save_score_rect)
         # Replay?
         replay_font = pygame.font.Font("freesansbold.ttf", 32)
         replay_surface = replay_font.render("Replay", True, accent_color)
-        replay_rect = replay_surface.get_rect(center=(screen_width / 2, screen_height / 2 + 50))
+        replay_rect = replay_surface.get_rect(center=(screen_width / 2, screen_height / 2 + 100))
         screen.blit(replay_surface, replay_rect)
         # Quit
         quit_font = pygame.font.Font("freesansbold.ttf", 32)
         quit_surface = quit_font.render("Quit", True, accent_color)
-        quit_rect = quit_surface.get_rect(center=(screen_width / 2, screen_height / 2 + 100))
+        quit_rect = quit_surface.get_rect(center=(screen_width / 2, screen_height / 2 + 150))
         screen.blit(quit_surface, quit_rect)
 
         pygame.display.flip()
@@ -203,7 +239,9 @@ class GameManager:
     def reset_scores(self):
         self.player_score = 0
         self.opponent_score = 0
+        self.game_over_flag = False
         self.ball_group.sprite.reset_ball()
+
 
 def draw_start_menu():
     screen.fill(bg_color)
@@ -215,38 +253,9 @@ def draw_start_menu():
     pygame.display.update()
 
 
-# General setup, needs init() to initialize a pygame  -------------------------------------------------------------
-pygame.mixer.pre_init(44100, -16, 2, 512)
-pygame.init()
-
-# creates a clock so game runs at an constant speed
-clock = pygame.time.Clock()
-
-
-# Main Window, sets up main window width, height and sets it in pygame
-screen_width = 1280
-screen_height = 960
-screen = pygame.display.set_mode((screen_width, screen_height))
-# changes the name of the window
-pygame.display.set_caption('Pong')
-
-
-# Global Variables
-# Colors ---------------------------------------Uses pygame.Color to create and hold color value variables----------------------------------------------------
-bg_color = pygame.Color('grey12')
-light_grey = (200, 200, 200)
-accent_color = (240,255,255)
-# Font ------------------------------------------------------------------
-game_font = pygame.font.Font('freesansbold.ttf', 32)
-# Sound -----------------------------------------------------------------
-pong_sound = pygame.mixer.Sound('pong/assets/audio/pong.ogg')
-score_sound = pygame.mixer.Sound('pong/assets/audio/score.ogg')
-middle_strip = pygame.Rect(screen_width/2 - 2, 0, 4, screen_height)
-
-
 # Game Objects
-player = Player('pong/assets/sprites/Paddle.png', screen_width - 20, screen_height/2, 5)
-opponent = Opponent('pong/assets/sprites/Paddle.png', 20, screen_width/2, 5)
+player = Player('pong/assets/sprites/Paddle.png', screen_width - 20, screen_height/2, 7)
+opponent = Opponent('pong/assets/sprites/Paddle.png', 20, screen_width/2, 7)
 
 # Group can take as many sprites
 paddle_group = pygame.sprite.Group()
@@ -254,46 +263,54 @@ paddle_group.add(player)
 paddle_group.add(opponent)
 
 # Group single only accepts single sprite
-ball = Ball('pong/assets/sprites/Ball.png', screen_width/2, screen_height/2, 4, 4, paddle_group)
+ball = Ball('pong/assets/sprites/Ball.png', screen_width/2, screen_height/2, 20, 20, paddle_group)
 ball_sprite = pygame.sprite.GroupSingle()
 ball_sprite.add(ball)
+
 
 game_manager = GameManager(ball_sprite, paddle_group)
 
 
-
 while True:
-    # Game Input(event) -----------------------------------------------------------------------
-    # keys = pygame.key.get_pressed()
-    for event in pygame.event.get():
-        if event.type == pygame.QUIT:
-            pygame.quit()
-            sys.exit()
-            # checks for keydown pressed for player
-            # handles the incrementing of the player's speed
-            # which in turn handle's the player's y position
-        if event.type == pygame.KEYDOWN:
-            if event.key == pygame.K_UP:
-                player.movement -= player.speed
-            if event.key == pygame.K_DOWN:
-                player.movement += player.speed
-        if event.type == pygame.KEYUP:
-            if event.key == pygame.K_UP:
-                player.movement += player.speed
-            if event.key == pygame.K_DOWN:
-                player.movement -= player.speed
-
-
-    # Visuals -------------------------------------------------------------------------------------
-    # must be in top down order
-    # .fill will be used for the background color
-    screen.fill(bg_color)
-    # Uses pygame.draw to draw the assets we need on the screen
-    # pygame.draw(surface, color, rect)
-    pygame.draw.rect(screen, accent_color, middle_strip)
-
-    game_manager.run_game()
-
     # Updates the window, in this case, we are updating it at 60 FPS
     pygame.display.flip()
     clock.tick(60)
+    print(game_manager.game_over_flag)
+    if game_manager.game_over_flag == False:
+        fade_counter = 0
+        # Game Input(event) -----------------------------------------------------------------------
+        # keys = pygame.key.get_pressed()
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                sys.exit()
+                # checks for keydown pressed for player
+                # handles the incrementing of the player's speed
+                # which in turn handle's the player's y position
+            if event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_UP:
+                    player.movement -= player.speed
+                if event.key == pygame.K_DOWN:
+                    player.movement += player.speed
+            if event.type == pygame.KEYUP:
+                if event.key == pygame.K_UP:
+                    player.movement += player.speed
+                if event.key == pygame.K_DOWN:
+                    player.movement -= player.speed
+
+        # Visuals -------------------------------------------------------------------------------------
+        # must be in top down order
+        # .fill will be used for the background color
+        screen.fill(bg_color)
+        # Uses pygame.draw to draw the assets we need on the screen
+        # pygame.draw(surface, color, rect)
+        pygame.draw.rect(screen, accent_color, middle_strip)
+
+        game_manager.run_game()
+    else:
+
+        game_manager.game_over()
+
+
+
+
