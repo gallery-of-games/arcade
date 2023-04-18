@@ -2,6 +2,7 @@
 
 ## Credit and Collaborations
 - Tyler Huntley
+- James Ian Solima - Helped work out the scoring and name display
 
 # Description
 Recreation of retro style Space Invaders game
@@ -14,9 +15,13 @@ Recreation of retro style Space Invaders game
 
 ## Resources 
 [Pygame](https://www.pygame.org/docs/)
+[W3 Schools](https://www.w3schools.com/python/)
+[Chat GPT](gpt.md)
+[Geeks for Geeks](https://www.geeksforgeeks.org/)
 [Tech with Tim](https://www.techwithtim.net/tutorials/game-development-with-python/)
 [Tech with Tim: Space Shooter Assets](https://techwithtim.net/wp-content/uploads/2020/04/assets.zip)
-TAs: Tammy helped with getting user input to function
+TAs: Tammy helped with getting user input to function, and scores to read from txt file and sort.
+[Tammy's Replit](https://replit.com/@tammytdo/SnivelingDefenselessSynergy#main.py) - While she was helping figure out what data types I was getting back.
 
 ## Game instructions for "Space Invaders"
 "Space Invaders" is a classic arcade game where the objective is to defeat a group of invading aliens with a laser cannon. In this version of the game, you control a spaceship and fight against enemy spaceships.
@@ -50,3 +55,6 @@ Enemy ship disappears when hit
 Acceptance Tests:
 Verify that lasers are fired when space bar is pressed
 Ensure lasers collide with enemy ships
+
+## Link to Code
+[Space Invaders](space_invaders.py)

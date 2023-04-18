@@ -58,8 +58,7 @@ BG = pygame.transform.scale(pygame.image.load("assets/background-black.png"), (W
 
 # Dictionary to store scores
 high_score = {
-    'Chuck Norris': 999,
-    'Deep Thought': 42,
+
 }
 
 
@@ -212,14 +211,17 @@ class Player(Ship):
         draw(self, window): Draws the player's ship on the screen
         health_bar(self, window): Draws the health bar for the player's ship on the screen
     """
+
     # TODO: THIS __init__ IS FOR THE GAME
-    def __init__(self, x, y, health=100):
+    # def __init__(self, x, y, health=100):
+
+    # TODO: THIS __init__ IS FOR PRESENTATION
+    def __init__(self, x, y, health=50):
 
     # TODO: THIS __init__ IS FOR TESTING
     # def __init__(self, x, y, health=10):
         """
         __init__(self, x, y, health=100): Initialize a player object with x and y coordinates and an optional health parameter
-
         """
         super().__init__(x, y, health)
         self.ship_img = YELLOW_SHIP
@@ -413,14 +415,15 @@ def main():
                         active = False
                 if event.type == pygame.KEYDOWN:
                     if active:
-                        text += event.unicode
+                        if event.key == pygame.K_BACKSPACE:
+                            text = text[:-1]
+                        else:
+                            text += event.unicode
                         if event.key == pygame.K_RETURN:
                             high_score[str(text).strip()] = level
                             text = ""
                             active = False
                             main_menu()
-                        elif event.key == pygame.K_BACKSPACE:
-                            text = text[:-1]
 
             pygame.display.update()
             pygame.draw.rect(WIN, (255, 0, 255), input_rect)
@@ -488,46 +491,44 @@ def main_menu():
     """
     title_font = pygame.font.Font(None, 60)
     run = True
+    sorted_high_scores = sorted(high_score.items(), key=lambda x: x[1], reverse=True)[:5]
+
+    for key, value in sorted_high_scores:
+        with open('assets/player_name_score.txt', 'a+') as file:
+            file.write(f'{key}: {value} \n')
+
     while run:
         WIN.blit(BG, (0, 0))
-        title_label = title_font.render("Press mouse button to begin", 1, (255, 255, 255))
+        title_label = title_font.render(f"Press mouse button to begin", 1, (255, 255, 255))
         WIN.blit(title_label, (WIDTH/2 - title_label.get_width()/2, 50))
         high_score_title = title_font.render(f'High Scores:', False, (255, 255, 255))
         WIN.blit(high_score_title, (WIDTH / 2 - high_score_title.get_width() / 2, 150))
-        high_score_list = 250
 
-        sorted_high_scores = sorted(high_score.items(), key=lambda x: x[1], reverse=True)[:5]
-        # set(sorted_high_scores)
-        for key, value in sorted_high_scores:
+        with open('assets/player_name_score.txt', 'r') as file:
+            contents = file.readlines()
 
-            # TODO: WRITE PLAYER NAME AND SCORE TO TXT FILE AND PULL FROM TXT FILE TO DISPLAY - TOP
-            # with open('assets/player_name_score.txt', 'r') as copy_file:
-            #     contents = copy_file.read()
-            #     # set(contents)
-            #     # str(value)
-            # with open('assets/player_name_score.txt', 'a') as file:
-            #     file.write(f'{key}: {value} \n')
-            # # with open('assets/player_name_score.txt', 'r') as file:
-            # #     contents = file.read()
-            # #     name_score = contents.split(': ')[0].split(' \n')[0]
-            # #     key = name_score[0]
-            # #     value = name_score[1]
-            #
-            # show_high_scores = title_font.render(f'{key}: {value}', False, (255, 255, 255))
-            # WIN.blit(show_high_scores, (WIDTH / 2 - show_high_scores.get_width() / 2, high_score_list))
-            # high_score_list += 100
-            # TODO: WRITE PLAYER NAME AND SCORE TO TXT FILE AND PULL FROM TXT FILE TO DISPLAY - BOTTOM
+            player_data = {
 
+            }
+            for line in contents:
+                name, score = line.strip().split(": ")
+                player_data[name] = int(score)
 
-            # TODO BELOW IS THE WORKING CODE
-            show_high_scores = title_font.render(f"{key}: {value}", False, (255, 255, 255))
-            WIN.blit(show_high_scores, (WIDTH / 2 - show_high_scores.get_width() / 2, high_score_list))
-            high_score_list += 100
+            sorted_players = sorted(player_data, key=player_data.get, reverse=True)
+
+            high_score_list = 250
+            for i, name in enumerate(sorted_players[:5]):
+                score = player_data[name]
+                show_high_scores = title_font.render(f'{i+1}. {name}: {score}', False, (255, 255, 255))
+                WIN.blit(show_high_scores, (WIDTH / 2 - show_high_scores.get_width() / 2, high_score_list))
+                high_score_list += 100
 
         pygame.display.update()
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 run = False
+                pygame.quit()
+                sys.exit()
             if event.type == pygame.MOUSEBUTTONDOWN:
                 main()
     pygame.quit()
