@@ -14,24 +14,46 @@ WIDTH, HEIGHT = 750, 750
 WIN = pygame.display.set_mode((WIDTH, HEIGHT))
 pygame.display.set_caption("Space Invaders")
 
+# TODO: ASSETS FOR PYTEST
 # Load images
 # Enemy ships
-RED_SHIP = pygame.image.load("assets/pixel_ship_red_small.png")
-BLUE_SHIP = pygame.image.load("assets/pixel_ship_blue_small.png")
-GREEN_SHIP = pygame.image.load("assets/pixel_ship_green_small.png")
+RED_SHIP = pygame.image.load("python_template/space_invaders/assets/pixel_laser_red.png")
+BLUE_SHIP = pygame.image.load("python_template/space_invaders/assets/pixel_ship_blue_small.png")
+GREEN_SHIP = pygame.image.load("python_template/space_invaders/assets/pixel_ship_green_small.png")
 # Player ship
-YELLOW_SHIP = pygame.image.load("assets/pixel_ship_yellow.png")
-
+YELLOW_SHIP = pygame.image.load("python_template/space_invaders/assets/pixel_ship_yellow.png")
 # Lasers
 # Enemy lasers
-RED_LASER = pygame.image.load("assets/pixel_laser_red.png")
-GREEN_LASER = pygame.image.load("assets/pixel_laser_green.png")
-BLUE_LASER = pygame.image.load("assets/pixel_laser_blue.png")
+RED_LASER = pygame.image.load("python_template/space_invaders/assets/pixel_laser_red.png")
+GREEN_LASER = pygame.image.load("python_template/space_invaders/assets/pixel_laser_green.png")
+BLUE_LASER = pygame.image.load("python_template/space_invaders/assets/pixel_laser_blue.png")
 # Player laser
-YELLOW_LASER = pygame.image.load("assets/pixel_laser_yellow.png")
+YELLOW_LASER = pygame.image.load("python_template/space_invaders/assets/pixel_laser_yellow.png")
 
 # Background image
-BG = pygame.transform.scale(pygame.image.load("assets/background-black.png"), (WIDTH, HEIGHT))
+BG = pygame.transform.scale(pygame.image.load("python_template/space_invaders/assets/background-black.png"), (WIDTH, HEIGHT))
+
+
+
+# TODO: ASSETS FOR GAMEPLAY
+# # Load images
+# # Enemy ships
+# RED_SHIP = pygame.image.load("assets/pixel_ship_red_small.png")
+# BLUE_SHIP = pygame.image.load("assets/pixel_ship_blue_small.png")
+# GREEN_SHIP = pygame.image.load("assets/pixel_ship_green_small.png")
+# # Player ship
+# YELLOW_SHIP = pygame.image.load("assets/pixel_ship_yellow.png")
+#
+# # Lasers
+# # Enemy lasers
+# RED_LASER = pygame.image.load("assets/pixel_laser_red.png")
+# GREEN_LASER = pygame.image.load("assets/pixel_laser_green.png")
+# BLUE_LASER = pygame.image.load("assets/pixel_laser_blue.png")
+# # Player laser
+# YELLOW_LASER = pygame.image.load("assets/pixel_laser_yellow.png")
+#
+# # Background image
+# BG = pygame.transform.scale(pygame.image.load("assets/background-black.png"), (WIDTH, HEIGHT))
 
 # Dictionary to store scores
 high_score = {
@@ -502,4 +524,5 @@ if __name__ == '__main__':
     """
     Main Gate: Calls main_menu function
     """
-    main_menu()
+    # main_menu()
+    pass
