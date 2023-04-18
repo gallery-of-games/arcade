@@ -1,5 +1,6 @@
 import pygame
 import os
+import sys
 import random
 import time
 pygame.font.init()
@@ -27,6 +28,11 @@ YELLOW_LASER = pygame.image.load("assets/pixel_laser_yellow.png")
 # Background image
 BG = pygame.transform.scale(pygame.image.load("assets/background-black.png"), (WIDTH, HEIGHT))
 
+high_score = {
+    'Chuck Norris': 999,
+    'Deep Thought': 42,
+}
+
 
 class Laser:
     def __init__(self, x, y, img):
@@ -42,7 +48,7 @@ class Laser:
         self.y += velocity
 
     def off_screen(self, height):
-        return not(self.y <= height and self.y >= 0)
+        return not(height >= self.y >= 0)
 
     def collision(self, obj):
         return collide(obj, self)
@@ -95,7 +101,11 @@ class Ship:
 
 
 class Player(Ship):
+    # TODO: THIS init IS FOR THE GAME
     def __init__(self, x, y, health=100):
+
+    # TODO: THIS init IS FOR TESTING
+    # def __init__(self, x, y, health=10):
         super().__init__(x, y, health)
         self.ship_img = YELLOW_SHIP
         self.laser_img = YELLOW_LASER
@@ -156,9 +166,10 @@ def main():
     run = True
     FPS = 60
     level = 0
+    user_input = ''
     lives = 5
-    main_font = pygame.font.SysFont('arial', 50)
-    lost_font = pygame.font.SysFont('arial', 70)
+    main_font = pygame.font.Font(None, 50)
+    lost_font = pygame.font.Font(None, 70)
 
     enemies = []
     wave_length = 5
@@ -175,8 +186,10 @@ def main():
     lost_count = 0
 
     def redraw_window():
+        # global user_input
+        # user_input = ''
         WIN.blit(BG, (0, 0))
-        lives_label = main_font.render(f"Lives: {lives}", 1, (255, 0, 0))
+        lives_label = main_font.render(f"Invasions Remaining: {lives}", 1, (255, 0, 0))
         level_label = main_font.render(f"Level: {level}", 1, (0, 0, 255))
 
         WIN.blit(lives_label, (10, 10))
@@ -190,8 +203,43 @@ def main():
         if lost:
             lost_label = lost_font.render("Game Over", 1, (255, 0, 0))
             WIN.blit(lost_label, (WIDTH/2 - lost_label.get_width()/2, 350))
+            get_player_name()
 
         pygame.display.update()
+
+    def get_player_name():
+        text_color = (255, 255, 255)
+        get_info_font = pygame.font.Font(None, 50)
+        input_rect = pygame.Rect(350, 300, 250, 32)
+        active = False
+        text = ""
+
+        while True:
+            for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                    pygame.quit()
+                    sys.exit()
+                if event.type == pygame.MOUSEBUTTONDOWN:
+                    if input_rect.collidepoint(event.pos):
+                        active = True
+                    else:
+                        active = False
+                if event.type == pygame.KEYDOWN:
+                    if active:
+                        text += event.unicode
+                        if event.key == pygame.K_RETURN:
+                            high_score[str(text).strip()] = level
+                            text = ""
+                            active = False
+                            main_menu()
+                        elif event.key == pygame.K_BACKSPACE:
+                            text = text[:-1]
+
+            pygame.display.update()
+            pygame.draw.rect(WIN, (255, 0, 255), input_rect)
+            input_text = get_info_font.render(text, True, text_color)
+            WIN.blit(input_text, (input_rect.x, input_rect.y))
+            pygame.display.flip()
 
     while run:
         clock.tick(FPS)
@@ -200,12 +248,6 @@ def main():
         if lives <= 0 or player.health <= 0:
             lost = True
             lost_count += 1
-
-        if lost:
-            if lost_count > FPS * 5:
-                run = False
-            else:
-                continue
 
         if len(enemies) == 0:
             level += 1
@@ -236,7 +278,6 @@ def main():
 
             if random.randrange(0, 2*60) == 1:
                 enemy.shoot()
-
             if collide(enemy, player):
                 player.health -= 10
                 enemies.remove(enemy)
@@ -250,14 +291,20 @@ def main():
 
 
 def main_menu():
-    title_font = pygame.font.SysFont("arial", 75)
+    title_font = pygame.font.Font(None, 60)
     run = True
     while run:
         WIN.blit(BG, (0, 0))
         title_label = title_font.render("Press mouse button to begin", 1, (255, 255, 255))
-        WIN.blit(title_label, (WIDTH/2 - title_label.get_width()/2, 350))
-        # high_level = title_font.render(f"High Scores:\n {self.max_level}")
-        # WIN.blit(high_level, (WIDTH / 2 - title_label.get_width() / 2, 350))
+        WIN.blit(title_label, (WIDTH/2 - title_label.get_width()/2, 50))
+        high_score_title = title_font.render(f'High Scores:', False, (255, 255, 255))
+        WIN.blit(high_score_title, (WIDTH / 2 - high_score_title.get_width() / 2, 150))
+        high_score_list = 250
+        sorted_high_scores = sorted(high_score.items(), key=lambda x: x[1], reverse=True)[:5]
+        for key, value in sorted_high_scores:
+            show_high_scores = title_font.render(f"{key} -> {value}", False, (255, 255, 255))
+            WIN.blit(show_high_scores, (WIDTH / 2 - show_high_scores.get_width() / 2, high_score_list))
+            high_score_list += 100
 
         pygame.display.update()
         for event in pygame.event.get():
