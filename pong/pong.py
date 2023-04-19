@@ -129,6 +129,7 @@ class GameManager:
             self.player_score += 1
             self.ball_group.sprite.reset_ball()
         if self.opponent_score >= 3:
+            pass
             # need to fix game over method to display a new bg fill
             # self.game_over()
 
