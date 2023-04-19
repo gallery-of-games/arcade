@@ -17,6 +17,9 @@ We are creating an arcade style game that contains multiple games within our mai
 ## Project Management
 [Trello Gallery of Games](https://trello.com/invite/b/LdzZM5iA/ATTI95625f9015f7b008a888cf1edde70ac6CBECCA49/401-midterm)
 
+## Presentation Deck
+[Gallery of Games Presentation Deck](https://docs.google.com/presentation/d/1CqKkvv-lWPFMeXz2xzkeT9zQyKEaoWyTg_D8mUFfw8I/edit#slide=id.g2accd1c413_3_31)
+
 ## Resources 
 
 
