@@ -6,9 +6,9 @@ screen = pygame.display.set_mode((600, 400))
 
 def start_game(game):
     if game == 'Pong':
-        os.system('python pong/pong.py')
+        os.system('python3 pong/pong.py')
     elif game == 'Space Invaders':
-        os.system('python space_invaders/space_invaders.py')
+        os.system('python3 space_invaders/space_invaders.py')
 
 menu = pygame_menu.Menu('Welcome', 400, 300,
                        theme=pygame_menu.themes.THEME_BLUE)
