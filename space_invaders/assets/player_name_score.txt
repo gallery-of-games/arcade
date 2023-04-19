@@ -9,3 +9,4 @@ bucky: 1
 sally: 1
 chuck: 1
 tyler: 1
+Tyler: 2 
