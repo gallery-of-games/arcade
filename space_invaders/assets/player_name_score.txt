@@ -1,13 +1,4 @@
 Tammy: 1000
 ChuckNorris: 999
-DeepThought: 42
-bob: 1
-sam: 1
-steve: 2
-bill: 1 
-phil: 1 
-MACK: 2 
-aliens: 1 
-bucky: 1 
-sally: 1 
-chuck: 1 
+
+

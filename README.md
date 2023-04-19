@@ -20,8 +20,11 @@ We are creating an arcade style game that contains multiple games within our mai
 ## Presentation Deck
 [Gallery of Games Presentation Deck](https://docs.google.com/presentation/d/1CqKkvv-lWPFMeXz2xzkeT9zQyKEaoWyTg_D8mUFfw8I/edit#slide=id.g2accd1c413_3_31)
 
-## Resources 
+## Slide Deck
+https://docs.google.com/presentation/d/1CqKkvv-lWPFMeXz2xzkeT9zQyKEaoWyTg_D8mUFfw8I/edit#slide=id.g2accd1c413_3_31
 
+## Resources 
+- Resources on our individual README's
 
 ## SETUP
 ```
