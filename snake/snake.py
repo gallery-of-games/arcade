@@ -155,19 +155,69 @@ class MAIN:
                 self.game_over()
 
     def show_game_over(self):
-        screen.fill(BACKGROUND)
-        line1 = game_font.render(f"Game is Over: Your score is {self.current_score}", True, (255, 255, 255))
-        screen.blit(line1, (200, 300))
-        line2 = game_font.render(f"To play again press Enter. To exit press Escape!", True, (255, 255, 255))
-        screen.blit(line2, (200, 350))
-        pygame.display.update()
+        WHITE = (255, 255, 255)
+        BLACK = (0, 0, 0)
+
+        # Set up the font
+        # font = pygame.font.SysFont(None, 50)
+
+        # Create the input box
+        input_box = pygame.Rect(200, 400, 140, 32)
+        color_inactive = WHITE
+        color_active = BLACK
+        color = color_inactive
+        text = ''
+        active = False
+
+        while True:
+            for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                    pygame.quit()
+                    quit()
+                if event.type == pygame.MOUSEBUTTONDOWN:
+                    # If the user clicked on the input_box rect.
+                    if input_box.collidepoint(event.pos):
+                        # Toggle the active variable.
+                        active = not active
+                    else:
+                        active = False
+                    # Change the color of the input box.
+                    color = color_active if active else color_inactive
+                if event.type == pygame.KEYDOWN:
+                    if active:
+                        if event.key == pygame.K_RETURN:
+                            # Save the player's name and return
+                            return text
+                        elif event.key == pygame.K_BACKSPACE:
+                            text = text[:-1]
+                        else:
+                            text += event.unicode
+
+            screen.fill(BACKGROUND)
+            line1 = game_font.render(f"Game is Over: Your score is {self.current_score}", True, WHITE)
+            screen.blit(line1, (200, 300))
+            line2 = game_font.render(f"Enter your name:", True, WHITE)
+            screen.blit(line2, (200, 375))
+
+            # Render the text.
+            txt_surface = game_font.render(text, True, color)
+            # Resize the box if the text is too long.
+            width = max(140, txt_surface.get_width() + 10)
+            input_box.w = width
+            # Blit the text.
+            screen.blit(txt_surface, (input_box.x + 5, input_box.y + 5))
+            # Blit the input_box rect.
+            pygame.draw.rect(screen, color, input_box, 2)
+
+            line3 = game_font.render(f"To play again press Enter. To exit press Escape!", True, WHITE)
+            screen.blit(line3, (200, 450))
+
+            pygame.display.update()
 
     def game_over(self):
         global pause
         pause = True
         self.snake.reset()
-
-
 
     def draw_grass(self):
         grass_color = (167, 209, 61)
@@ -250,7 +300,8 @@ while running:
             main_game.show_game_over()
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_RETURN:
-                    # running = True
+                    main_game.current_score = 0
+                    running = True
                     pause = False
                 if event.key == pygame.K_ESCAPE:
                     running = False
