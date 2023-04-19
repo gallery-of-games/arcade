@@ -19,6 +19,9 @@ screen = pygame.display.set_mode((screen_width, screen_height))
 pygame.display.set_caption('Pong')
 
 # Global Variables
+# Paths ----------------------------------------------
+
+
 # Colors ---------------------------------------Uses pygame.Color to create and hold color value variables----------------------------------------------------
 bg_color = pygame.Color('grey12')
 light_grey = (200, 200, 200)
@@ -308,7 +311,6 @@ while True:
 
         game_manager.run_game()
     else:
-
         game_manager.game_over()
 
 
