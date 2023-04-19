@@ -2,6 +2,7 @@ import pygame, pygame_menu, os
 
 pygame.init()
 screen = pygame.display.set_mode((600, 400))
+pygame.display.set_caption("Gallery of Games")
 
 
 def start_game(game):
