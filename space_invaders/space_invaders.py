@@ -39,20 +39,20 @@ pygame.display.set_caption("Space Invaders")
 # TODO: ASSETS FOR GAMEPLAY - TOP
 # Load images
 # Enemy ships
-RED_SHIP = pygame.image.load("assets/pixel_ship_red_small.png")
-BLUE_SHIP = pygame.image.load("assets/pixel_ship_blue_small.png")
-GREEN_SHIP = pygame.image.load("assets/pixel_ship_green_small.png")
+RED_SHIP = pygame.image.load("space_invaders/assets/pixel_ship_red_small.png")
+BLUE_SHIP = pygame.image.load("space_invaders/assets/pixel_ship_blue_small.png")
+GREEN_SHIP = pygame.image.load("space_invaders/assets/pixel_ship_green_small.png")
 # Player ship
-YELLOW_SHIP = pygame.image.load("assets/pixel_ship_yellow.png")
+YELLOW_SHIP = pygame.image.load("space_invaders/assets/pixel_ship_yellow.png")
 # Lasers
 # Enemy lasers
-RED_LASER = pygame.image.load("assets/pixel_laser_red.png")
-GREEN_LASER = pygame.image.load("assets/pixel_laser_green.png")
-BLUE_LASER = pygame.image.load("assets/pixel_laser_blue.png")
+RED_LASER = pygame.image.load("space_invaders/assets/pixel_laser_red.png")
+GREEN_LASER = pygame.image.load("space_invaders/assets/pixel_laser_green.png")
+BLUE_LASER = pygame.image.load("space_invaders/assets/pixel_laser_blue.png")
 # Player laser
-YELLOW_LASER = pygame.image.load("assets/pixel_laser_yellow.png")
+YELLOW_LASER = pygame.image.load("space_invaders/assets/pixel_laser_yellow.png")
 # Background image
-BG = pygame.transform.scale(pygame.image.load("assets/background-black.png"), (WIDTH, HEIGHT))
+BG = pygame.transform.scale(pygame.image.load("space_invaders/assets/background-black.png"), (WIDTH, HEIGHT))
 # TODO: ASSETS FOR GAMEPLAY - BOTTOM
 
 
@@ -494,7 +494,7 @@ def main_menu():
     sorted_high_scores = sorted(high_score.items(), key=lambda x: x[1], reverse=True)[:5]
 
     for key, value in sorted_high_scores:
-        with open('assets/player_name_score.txt', 'a+') as file:
+        with open('space_invaders/assets/player_name_score.txt', 'a+') as file:
             file.write(f'{key}: {value} \n')
 
     while run:
@@ -504,7 +504,7 @@ def main_menu():
         high_score_title = title_font.render(f'High Scores:', False, (255, 255, 255))
         WIN.blit(high_score_title, (WIDTH / 2 - high_score_title.get_width() / 2, 150))
 
-        with open('assets/player_name_score.txt', 'r') as file:
+        with open('space_invaders/assets/player_name_score.txt', 'r') as file:
             contents = file.readlines()
 
             player_data = {
