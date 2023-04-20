@@ -43,7 +43,7 @@ class SNAKE:
                 screen.blit(self.tail, block_rect)
             else:
                 previous_block = self.body[index + 1] - block
-                next_block = self.body[index -1] - block
+                next_block = self.body[index - 1] - block
                 if previous_block.x == next_block.x:
                     screen.blit(self.body_vertical, block_rect)
                 elif previous_block.y == next_block.y:
@@ -249,9 +249,6 @@ class MAIN:
 
         return result
 
-
-
-
     def game_over(self):
         global pause
         pause = True
@@ -306,49 +303,56 @@ current_score = 0
 SCREEN_UPDATE = pygame.USEREVENT
 pygame.time.set_timer(SCREEN_UPDATE, 150)
 
-while running:
-    for event in pygame.event.get():
-        if event.type == pygame.QUIT:
-            pygame.quit()
-            sys.exit()
-        if pause is False:
-            if event.type == SCREEN_UPDATE:
-                main_game.update()
-            if event.type == pygame.KEYDOWN:
-                if event.key == pygame.K_ESCAPE:
-                    running = False
-                if event.key == pygame.K_RETURN:
-                    running = True
-                if event.key == pygame.K_UP:
-                    if main_game.snake.direction.y != 1:
-                        main_game.snake.direction = Vector2(0, -1)
-                if event.key == pygame.K_DOWN:
-                    if main_game.snake.direction.y != -1:
-                        main_game.snake.direction = Vector2(0, 1)
-                if event.key == pygame.K_LEFT:
-                    if main_game.snake.direction.x != 1:
-                        main_game.snake.direction = Vector2(-1, 0)
-                if event.key == pygame.K_RIGHT:
-                    if main_game.snake.direction.x != -1:
-                        main_game.snake.direction = Vector2(1, 0)
 
-            screen.fill((175, 215, 70))
-            main_game.draw_elements()
-            pygame.display.update()
-            clock.tick(60)
-        elif pause is True:
-            end_me = main_game.draw_player_name()
-            if end_me == "end":
-                pause = False
-                pause2 = True
-                if pause2 is True:
-                    main_game.show_game_over()
-                    main_game.get_top_scores()
-                    if event.type == pygame.KEYDOWN:
-                        if event.key == pygame.K_RETURN:
-                            pause2 = False
-                        if event.key == pygame.K_ESCAPE:
-                            running = False
+def play():
+    global running
+    global pause
+    global pause2
+    while running:
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                sys.exit()
+            if pause is False:
+                if event.type == SCREEN_UPDATE:
+                    main_game.update()
+                if event.type == pygame.KEYDOWN:
+                    if event.key == pygame.K_ESCAPE:
+                        running = False
+                    if event.key == pygame.K_RETURN:
+                        running = True
+                    if event.key == pygame.K_UP:
+                        if main_game.snake.direction.y != 1:
+                            main_game.snake.direction = Vector2(0, -1)
+                    if event.key == pygame.K_DOWN:
+                        if main_game.snake.direction.y != -1:
+                            main_game.snake.direction = Vector2(0, 1)
+                    if event.key == pygame.K_LEFT:
+                        if main_game.snake.direction.x != 1:
+                            main_game.snake.direction = Vector2(-1, 0)
+                    if event.key == pygame.K_RIGHT:
+                        if main_game.snake.direction.x != -1:
+                            main_game.snake.direction = Vector2(1, 0)
+
+                screen.fill((175, 215, 70))
+                main_game.draw_elements()
+                pygame.display.update()
+                clock.tick(60)
+            elif pause is True:
+                end_me = main_game.draw_player_name()
+                if end_me == "end":
+                    pause = False
+                    pause2 = True
+                    if pause2 is True:
+                        main_game.show_game_over()
+                        main_game.get_top_scores()
+                        if event.type == pygame.KEYDOWN:
+                            if event.key == pygame.K_RETURN:
+                                pause2 = False
+                            if event.key == pygame.K_ESCAPE:
+                                running = False
+
 
 if __name__ == '__main__':
     MAIN()
+    play()
