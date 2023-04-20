@@ -1,18 +1,15 @@
 import pytest
 import pygame
-from arcade.snake.snake import SNAKE, FRUIT, MAIN
+from snake.snake import SNAKE, FRUIT, MAIN
 
-pygame.init()
-screen = pygame.display.set_mode((600, 600))
-cell_size = 30
-cell_number = 20
-apple = pygame.image.load('assets/apple.png').convert_alpha()
+
 
 def test_snake_initialization():
     snake = SNAKE()
     assert len(snake.body) == 3
     assert snake.direction == pygame.math.Vector2(1, 0)
     assert not snake.new_block
+
 
 def test_snake_move():
     snake = SNAKE()
