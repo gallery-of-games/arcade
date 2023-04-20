@@ -1,3 +1,4 @@
+import pytest
 import pygame
 from space_invaders import Player, Enemy, Laser
 
@@ -11,11 +12,13 @@ def test_enemy_attributes():
     assert enemy.lasers == []
     assert enemy.cool_down_counter == 0
 
+
 # @pytest.mark.skip
 def test_enemy_movement():
     enemy = Enemy(0, 0, 'red')
     enemy.move(5)
     assert enemy.y == 5
+
 
 # @pytest.mark.skip
 def test_laser_movement():
@@ -23,11 +26,13 @@ def test_laser_movement():
     laser.move(5)
     assert laser.y == 5
 
+
 # @pytest.mark.skip
 def test_ship_laser_shoot():
     player = Player(0, 0)
     player.shoot()
     assert len(player.lasers) == 1
+
 
 # @pytest.mark.skip
 def tes_ship_health_damage():
@@ -38,12 +43,14 @@ def tes_ship_health_damage():
     player.move_lasers(-5, enemy)
     assert enemy.health == 90
 
+
 # @pytest.mark.skip
 def test_laser_off_screen():
     laser = Laser(0, -10, pygame.Surface((10, 10)))
     assert laser.off_screen(750) is True
     laser = Laser(0, 850, pygame.Surface((10, 10)))
     assert laser.off_screen(750) is True
+
 
 # @pytest.mark.skip
 def test_laser_collision():
@@ -53,6 +60,7 @@ def test_laser_collision():
     assert laser.collision(object1) is False
     assert laser.collision(object2) is False
 
+
 # @pytest.mark.skip
 def test_ship_cooldown():
     player = Player(0, 0)
@@ -61,8 +69,9 @@ def test_ship_cooldown():
     player.shoot()
     assert player.cool_down_counter == 1
     player.cool_down_counter = 1
-    player.shoot
+    player.shoot()
     assert player.cool_down_counter == 1
+
 
 # @pytest.mark.skip
 def test_ship_move_lasers():
