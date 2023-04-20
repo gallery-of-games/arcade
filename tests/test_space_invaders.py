@@ -1,4 +1,3 @@
-import pytest
 import pygame
 from space_invaders.space_invaders import Player, Enemy, Laser
 

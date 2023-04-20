@@ -43,7 +43,9 @@ class SNAKE:
                 screen.blit(self.tail, block_rect)
             else:
                 previous_block = self.body[index + 1] - block
+
                 next_block = self.body[index - 1] - block
+
                 if previous_block.x == next_block.x:
                     screen.blit(self.body_vertical, block_rect)
                 elif previous_block.y == next_block.y:
@@ -356,3 +358,4 @@ def play():
 if __name__ == '__main__':
     MAIN()
     play()
+
