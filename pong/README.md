@@ -32,3 +32,5 @@ game can be paused and resumed correctly using keyboard shortcuts, and that the 
 ## Resources
 
 [Learning Pygame by making Pong](https://www.youtube.com/watch?v=n1mKIK7lCx0)
+
+[assets - pong paddles, sounds and ball](https://github.com/clear-code-projects/Pong_in_Pygame)

@@ -4,7 +4,6 @@ from pygame.math import Vector2
 from snake.snake import SNAKE, FRUIT, MAIN
 
 
-
 def test_snake_initialization():
     snake = SNAKE()
     assert len(snake.body) == 3
@@ -29,8 +28,9 @@ def test_main_initialization():
 
 def test_FRUIT():
     fruit = FRUIT()
-
     # Testing the initial state of the fruit
     assert fruit.x >= 0 and fruit.x < 20
     assert fruit.y >= 0 and fruit.y < 20
     assert fruit.pos == Vector2(fruit.x, fruit.y)
+
+
