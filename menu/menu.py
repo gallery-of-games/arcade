@@ -1,7 +1,7 @@
 import pygame, pygame_menu, os
 
 pygame.init()
-screen = pygame.display.set_mode((600, 400))
+screen = pygame.display.set_mode((800, 600))
 pygame.display.set_caption("Gallery of Games")
 
 
@@ -13,7 +13,7 @@ def start_game(game):
     elif game == 'Snake':
         os.system('python snake/snake.py')
 
-menu = pygame_menu.Menu('Gallery of Games', 400, 300,
+menu = pygame_menu.Menu('Gallery of Games', 800, 600,
                        theme=pygame_menu.themes.THEME_BLUE)
 
 # name_widget = menu.add.text_input('Name :', default='John Doe')
