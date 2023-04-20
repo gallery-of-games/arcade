@@ -1,11 +1,19 @@
 [
     {
+        "name": "Bruce Lee",
+        "score": 8
+    },
+    {
         "name": "James",
         "score": 5
     },
     {
         "name": "Dutch",
         "score": 4
+    },
+    {
+        "name": "Donnie Yen",
+        "score": 3
     },
     {
         "name": "Darran",
@@ -29,6 +37,10 @@
     },
     {
         "name": "Darran",
+        "score": 0
+    },
+    {
+        "name": "",
         "score": 0
     },
     {
