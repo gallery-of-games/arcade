@@ -1,4 +1,4 @@
-import pygame, sys, random
+import pygame, sys, random, os, json
 from pygame.math import Vector2
 
 
@@ -43,7 +43,7 @@ class SNAKE:
                 screen.blit(self.tail, block_rect)
             else:
                 previous_block = self.body[index + 1] - block
-                next_block = self.body[index -1] - block
+                next_block = self.body[index - 1] - block
                 if previous_block.x == next_block.x:
                     screen.blit(self.body_vertical, block_rect)
                 elif previous_block.y == next_block.y:
@@ -155,12 +155,99 @@ class MAIN:
                 self.game_over()
 
     def show_game_over(self):
+        print("show game")
         screen.fill(BACKGROUND)
-        line1 = game_font.render(f"Game is Over: Your score is {self.current_score}", True, (255, 255, 255))
-        screen.blit(line1, (200, 300))
-        line2 = game_font.render(f"To play again press Enter. To exit press Escape!", True, (255, 255, 255))
-        screen.blit(line2, (200, 350))
+        line0 = game_font.render("High Scores", True, (255, 255, 255))
+        screen.blit(line0, (200, 150))
+
+        top1 = game_font.render(main_game.get_top_scores()[0], True, (255, 255, 255))
+        screen.blit(top1, (200, 200))
+        top2 = game_font.render(main_game.get_top_scores()[1], True, (255, 255, 255))
+        screen.blit(top2, (200, 250))
+        top3 = game_font.render(main_game.get_top_scores()[2], True, (255, 255, 255))
+        screen.blit(top3, (200, 300))
+        top4 = game_font.render(main_game.get_top_scores()[3], True, (255, 255, 255))
+        screen.blit(top4, (200, 350))
+        top5 = game_font.render(main_game.get_top_scores()[4], True, (255, 255, 255))
+        screen.blit(top5, (200, 400))
+        line2 = game_font.render(f"Game is Over: Your score is {self.current_score}", True, (255, 255, 255))
+        screen.blit(line2, (200, 450))
+        line3 = game_font.render(f"To play again press Enter. To exit press Escape!", True, (255, 255, 255))
+        screen.blit(line3, (200, 500))
+
+
+
+
         pygame.display.update()
+
+        while True:
+            for event in pygame.event.get():
+                if event.type == pygame.KEYDOWN and event.key == pygame.K_RETURN:
+                    main_game.current_score = 0
+                    return
+
+    def draw_player_name(self):
+        player_name = ''
+        name_font = pygame.font.Font(None, 40)
+        name_text = name_font.render('Enter your name:', True, (255, 255, 255))
+        name_rect = name_text.get_rect(center=(800 // 2, 800 // 2))
+
+        while True:
+            for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                    pygame.quit()
+                    sys.exit()
+                elif event.type == pygame.KEYDOWN:
+                    if event.key == pygame.K_RETURN:
+                        # Player has entered their name
+                        self.add_high_score(player_name, self.current_score)
+                        print("HERE")
+                        return "end"
+                    if event.key == pygame.K_TAB:
+                        print("TAB")
+                        self.show_game_over()
+                    elif event.key == pygame.K_BACKSPACE:
+                        # Remove last character from player's name
+                        player_name = player_name[:-1]
+
+                    else:
+                        # Add typed character to player's name
+                        player_name += event.unicode
+
+            # Draw the name prompt and the player's name
+            screen.fill((0, 0, 0))
+            screen.blit(name_text, name_rect)
+            player_name_text = name_font.render(player_name, True, (255, 255, 255))
+            player_name_rect = player_name_text.get_rect(center=(800 // 2, 800 // 2 + 50))
+            screen.blit(player_name_text, player_name_rect)
+            pygame.display.update()
+
+    def add_high_score(self, player_name, current_score):
+        high_scores = []
+        if os.path.exists('high_scores.json'):
+            with open('high_scores.json', 'r') as file:
+                high_scores = json.load(file)
+
+        high_scores.append({'name': player_name, 'score': self.current_score})
+        high_scores = sorted(high_scores, key=lambda x: x['score'], reverse=True)
+
+        with open('high_scores.json', 'w') as file:
+            json.dump(high_scores, file, indent=4)
+
+
+    def get_top_scores(self):
+        high_scores = []
+        if os.path.exists('high_scores.json'):
+            with open('high_scores.json', 'r') as file:
+                high_scores = json.load(file)
+
+        high_scores = sorted(high_scores, key=lambda x: x['score'], reverse=True)[:5]
+
+        result = []
+        for i, score in enumerate(high_scores):
+            result.append(f"{i + 1}. {score['name']}: {score['score']}")
+
+        return result
 
     def game_over(self):
         global pause
@@ -208,48 +295,64 @@ apple = pygame.image.load('assets/apple.png')
 game_font = pygame.font.Font('assets/PoetsenOne-Regular.ttf', 25)
 pause = False
 running = True
+pause2 = False
+game_over = False
 main_game = MAIN()
 current_score = 0
 
 SCREEN_UPDATE = pygame.USEREVENT
 pygame.time.set_timer(SCREEN_UPDATE, 150)
 
-while running:
-    for event in pygame.event.get():
-        if event.type == pygame.QUIT:
-            pygame.quit()
-            sys.exit()
-        if pause is False:
-            if event.type == SCREEN_UPDATE:
-                main_game.update()
-            if event.type == pygame.KEYDOWN:
-                if event.key == pygame.K_ESCAPE:
-                    running = False
-                if event.key == pygame.K_RETURN:
-                    running = True
-                if event.key == pygame.K_UP:
-                    if main_game.snake.direction.y != 1:
-                        main_game.snake.direction = Vector2(0, -1)
-                if event.key == pygame.K_DOWN:
-                    if main_game.snake.direction.y != -1:
-                        main_game.snake.direction = Vector2(0, 1)
-                if event.key == pygame.K_LEFT:
-                    if main_game.snake.direction.x != 1:
-                        main_game.snake.direction = Vector2(-1, 0)
-                if event.key == pygame.K_RIGHT:
-                    if main_game.snake.direction.x != -1:
-                        main_game.snake.direction = Vector2(1, 0)
 
-            screen.fill((175, 215, 70))
-            main_game.draw_elements()
-            pygame.display.update()
-            clock.tick(60)
-        elif pause is True:
-            main_game.show_game_over()
-            if event.type == pygame.KEYDOWN:
-                if event.key == pygame.K_RETURN:
-                    main_game.current_score = 0
-                    running = True
+def play():
+    global running
+    global pause
+    global pause2
+    while running:
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                sys.exit()
+            if pause is False:
+                if event.type == SCREEN_UPDATE:
+                    main_game.update()
+                if event.type == pygame.KEYDOWN:
+                    if event.key == pygame.K_ESCAPE:
+                        running = False
+                    if event.key == pygame.K_RETURN:
+                        running = True
+                    if event.key == pygame.K_UP:
+                        if main_game.snake.direction.y != 1:
+                            main_game.snake.direction = Vector2(0, -1)
+                    if event.key == pygame.K_DOWN:
+                        if main_game.snake.direction.y != -1:
+                            main_game.snake.direction = Vector2(0, 1)
+                    if event.key == pygame.K_LEFT:
+                        if main_game.snake.direction.x != 1:
+                            main_game.snake.direction = Vector2(-1, 0)
+                    if event.key == pygame.K_RIGHT:
+                        if main_game.snake.direction.x != -1:
+                            main_game.snake.direction = Vector2(1, 0)
+
+                screen.fill((175, 215, 70))
+                main_game.draw_elements()
+                pygame.display.update()
+                clock.tick(60)
+            elif pause is True:
+                end_me = main_game.draw_player_name()
+                if end_me == "end":
                     pause = False
-                if event.key == pygame.K_ESCAPE:
-                    running = False
+                    pause2 = True
+                    if pause2 is True:
+                        main_game.show_game_over()
+                        main_game.get_top_scores()
+                        if event.type == pygame.KEYDOWN:
+                            if event.key == pygame.K_RETURN:
+                                pause2 = False
+                            if event.key == pygame.K_ESCAPE:
+                                running = False
+
+
+if __name__ == '__main__':
+    MAIN()
+    play()
