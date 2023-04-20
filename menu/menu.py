@@ -13,13 +13,13 @@ def start_game(game):
     elif game == 'Snake':
         os.system('python snake/snake.py')
 
-menu = pygame_menu.Menu('Welcome', 400, 300,
+menu = pygame_menu.Menu('Gallery of Games', 400, 300,
                        theme=pygame_menu.themes.THEME_BLUE)
 
 # name_widget = menu.add.text_input('Name :', default='John Doe')
 space_invaders_button = menu.add.button('Space Invaders', start_game, 'Space Invaders')
 pong_button = menu.add.button('Pong', start_game, 'Pong')
-pong_button = menu.add.button('Snake', start_game, 'Snake')
+snake_button = menu.add.button('Snake', start_game, 'Snake')
 menu.add.button('Quit', pygame_menu.events.EXIT)
 
 
