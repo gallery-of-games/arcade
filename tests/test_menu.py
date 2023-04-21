@@ -1,30 +1,45 @@
 # import pytest
-# import os
 # import pygame
 # import pygame_menu
-
-# from unittest.mock import MagicMock
-# from menu.menu import start_game
+# from time import sleep
+# from menu.menu import start_game, menu
+# import unittest.mock as mock
+# from unittest.mock import patch, MagicMock
+# import pygame_menu.events
+# import os
+# os.environ["SDL_VIDEODRIVER"] = "dummy"
 #
 #
-# @pytest.mark.parametrize("game", ["Pong", "Space Invaders", "Snake"])
-# def test_start_game_uses_correct_game(game):
-#     start_game(game)
-#     # assert that the correct game was started by checking the command executed by os.system()
-#     if game == "Pong":
-
-#         expected_command = "python pong/game.py"
-
-#     elif game == "Space Invaders":
-#         expected_command = "python space_invaders/space_invaders.py"
-#     else:
-#         expected_command = "python snake/snake.py"
-#     assert os.system.call_args[0][0] == expected_command
+# @pytest.fixture
+# def surface():
+#     pygame.init()
+#     return pygame.display.set_mode((640, 480))
 #
 #
-# @pytest.mark.parametrize("game", ["Pong", "Space Invaders", "Snake"])
+# @pytest.fixture
+# def menu(surface):
+#     menu = pygame_menu.Menu('Gallery of Games', 400, 300, theme=pygame_menu.themes.THEME_BLUE)
+#     menu.add.button('Quit', pygame_menu.events.EXIT)
+#     return menu
+#
+#
+# @patch('subprocess.run')
+# def test_start_game_uses_correct_game(mock_run):
+#     expected_commands = {
+#         'Pong': 'python pong/game.py',
+#         'Space Invaders': 'python space_invaders/space_invaders.py',
+#         'Snake': 'python snake/snake.py',
+#         'Hangman (BETA)': 'python hangman/main.py'
+#     }
+#     for game, expected_command in expected_commands.items():
+#         start_game(game)
+#         mock_run.assert_called_once_with(expected_command.split(), capture_output=True, text=True)
+#         mock_run.reset_mock()
+#
+#
+# @pytest.mark.parametrize("game", ["Pong", "Space Invaders", "Snake", "Hangman"])
 # def test_start_game_opens_game_window(game):
-#     start_game(game)
+#     pygame.init()
 #     # assert that the game window has started by checking for the presence of a Pygame surface
 #     assert pygame.display.get_surface() is not None
 #
@@ -34,8 +49,7 @@
 #     menu.add.button('Quit', pygame_menu.events.CLOSE)
 #
 #     # create a mock event to simulate the Quit button being clicked
-#     mock_event = MagicMock()
-#     mock_event.type = pygame_menu.events.PYGAME_QUIT
+#     mock_event = pygame.event.Event(pygame_menu.events.CLOSE, {})
 #
 #     # call the menu's update method with the mock event to simulate the Quit button being clicked
 #     menu.update(mock_event)

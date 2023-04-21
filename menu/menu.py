@@ -12,6 +12,8 @@ def start_game(game):
         os.system('python space_invaders/space_invaders.py')
     elif game == 'Snake':
         os.system('python snake/snake.py')
+    elif game == 'Hangman (BETA)':
+        os.system('python hangman/main.py')
 
 
 menu = pygame_menu.Menu('Gallery of Games', 800, 600,
@@ -21,6 +23,7 @@ menu = pygame_menu.Menu('Gallery of Games', 800, 600,
 space_invaders_button = menu.add.button('Space Invaders', start_game, 'Space Invaders')
 pong_button = menu.add.button('Pong', start_game, 'Pong')
 snake_button = menu.add.button('Snake', start_game, 'Snake')
+hangman_button = menu.add.button('Hangman (BETA)', start_game, 'Hangman (BETA)')
 
 menu.add.button('Quit', pygame_menu.events.EXIT)
 
