@@ -517,5 +517,5 @@ if __name__ == '__main__':
     """
     Main Gate: Calls main_menu function to run game
     """
-    main_menu()
+    main_menu() # pragma: no cover
     # pass

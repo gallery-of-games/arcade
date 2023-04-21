@@ -84,7 +84,6 @@ def test_high_score_dict():
     assert len(high_score) == 1
 
 
-# @pytest.mark.skip
 def test_enemy_move():
     # Ensure that the enemy object moves correctly
     enemy = Enemy(300, 630, "red")
@@ -104,7 +103,8 @@ def test_collide():
     assert collide(player, enemy) == True
 
 
-# @pytest.mark.skip
+
+# @pytest.mark.skips
 def test_high_scores_are_sorted():
     high_score = {"Player 1": 500, "Player 2": 1000, "Player 3": 750}
     with patch('builtins.open', mock_open(read_data='')) as mock_file:
@@ -121,6 +121,7 @@ def test_player_data_is_parsed_correctly():
             name, score = line.strip().split(": ")
             player_data[name] = int(score)
         assert player_data == {"Player 1": 500, "Player 2": 1000, "Player 3": 750}
+
 
 
 # @pytest.mark.skip
