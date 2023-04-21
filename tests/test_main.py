@@ -4,11 +4,13 @@ import pytest
 import random
 from hangman.main import display_message
 
+
 pygame.init()
 pygame.font.init()
 
 # def test_sanitize_input():
 #     assert sanitize_input("AbC123") == "abc"
+
 
 
 def test_draw_text():
@@ -21,6 +23,7 @@ def test_draw_text():
 #         draw_hangman(i, surface)
 
 
+
 def test_draw_word_completion():
     font = pygame.font.SysFont('comicsans', 60)
 
@@ -31,6 +34,7 @@ def test_draw_guessed_letters():
 
 def test_display_message():
     display_message("Game over!")
+
 
 
 # def test_update_high_score(tmp_path):
@@ -56,5 +60,8 @@ def test_display_message():
 # def test_main_loop():
 #     # Test that the main game loop runs without errors
 #     main_loop()
+
+
+
 
 
