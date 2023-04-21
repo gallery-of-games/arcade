@@ -1,5 +1,5 @@
-from pong.states.state import State
-from pong.states.pong import Pong
+from states.state import State
+from states.pong import Pong
 import pygame
 
 class Title(State):

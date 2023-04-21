@@ -2,8 +2,8 @@ import pygame
 import os
 import random
 import sys
-from pong.states.state import State
-from pong.states.game_over import GameOver
+from states.state import State
+from states.game_over import GameOver
 
 class Pong(State):
     def __init__(self, game):
