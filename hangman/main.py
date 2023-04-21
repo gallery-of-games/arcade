@@ -39,7 +39,7 @@ guessed = []
 WHITE = (255, 255, 255)
 BLACK = (0, 0, 0)
 
-def draw():
+def draw():  # pragma: no cover
     win.fill(WHITE)
 
     text = TITLE_FONT.render("test hangman", 1, BLACK)
