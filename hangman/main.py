@@ -28,7 +28,7 @@ TITLE_FONT = pygame.font.Font(None, 70)
 
 images = []
 for i in range(7):
-    image = pygame.image.load("assets/hangman0" + str(i) + ".png")
+    image = pygame.image.load("hangman/assets/hangman0" + str(i) + ".png")
     images.append(image)
 
 hangman_status = 0
