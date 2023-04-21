@@ -1,9 +1,9 @@
 import pygame
 import time
 import os
-from pong.states.game_over import GameOver
-from pong.states.pong import Pong
-from pong.states.title import Title
+from states.game_over import GameOver
+from states.pong import Pong
+from states.title import Title
 
 class Game():
     """

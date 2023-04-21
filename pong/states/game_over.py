@@ -2,7 +2,7 @@ import pygame
 import pygame_gui
 import os
 import sys
-from pong.states.state import State
+from states.state import State
 
 class GameOver(State):
     def __init__(self, game, score):
