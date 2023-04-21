@@ -2,6 +2,7 @@ import pygame, sys, random, os, json
 from pygame.math import Vector2
 
 
+
 class SNAKE:
     def __init__(self):
         self.body = [Vector2(5, 10), Vector2(4, 10), Vector2(3, 10)]

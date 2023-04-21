@@ -210,6 +210,7 @@ def test_check_collision_with_snake():
     main.check_collision()
     assert main.fruit.pos != Vector2(6, 5)
 
+
 # new tests
 
 
