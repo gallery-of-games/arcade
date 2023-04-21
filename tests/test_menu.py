@@ -1,4 +1,8 @@
 # import pytest
+# import os
+# import pygame
+# import pygame_menu
+
 # from unittest.mock import MagicMock
 # from menu.menu import start_game
 #
@@ -8,7 +12,9 @@
 #     start_game(game)
 #     # assert that the correct game was started by checking the command executed by os.system()
 #     if game == "Pong":
-#         expected_command = "python pong/pong.py"
+
+#         expected_command = "python pong/game.py"
+
 #     elif game == "Space Invaders":
 #         expected_command = "python space_invaders/space_invaders.py"
 #     else:
